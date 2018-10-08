@@ -52,4 +52,5 @@ error = FALSE
   key_filename_option = "ws_incites_key_filename",
   api_name = "Incites")
 ws_list_apis()
+ws_auth_header(api_key = "my_api_key")
 }

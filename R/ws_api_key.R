@@ -69,7 +69,7 @@ ws_api_key = function(
                 "set environment variable ", sys_env, ", to be ",
                 "accessed by Sys.getenv('", sys_env, "')"))
   }
-
+  return(api_key)
 }
 
 #' @rdname ws_api_key
@@ -107,11 +107,14 @@ ws_list_apis = function() {
     x$url = ws_api_url(x$endpoint)
     x
   })
+  return(L)
 }
 
 #' @rdname ws_api_key
 #' @export
 #' @importFrom httr add_headers
+#' @examples
+#' ws_auth_header(api_key = "my_api_key")
 ws_auth_header = function(api_key = NULL) {
   httr::add_headers('X-API-Key' = api_key)
 }

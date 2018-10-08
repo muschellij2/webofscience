@@ -35,4 +35,10 @@ Web of Science Endpoints
 \examples{
 ws_incites_endpoints()
 ws_endpoints(api = "incites")
+ws_endpoints(api = c("incites", "endnote"))
+ws_incites_endpoints()
+ws_endnote_endpoints()
+ws_woslite_endpoints()
+ws_woslite_endpoints()
+ws_tipms_endpoints()
 }

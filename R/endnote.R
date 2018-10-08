@@ -23,6 +23,8 @@ ws_endnote_key = function(api_key = NULL, error = TRUE) {
 
 #' @rdname ws_endnote_key
 #' @export
+#' @examples
+#' ws_have_endnote_key()
 ws_have_endnote_key = function(api_key = NULL) {
   api_key = ws_endnote_key(api_key = api_key, error = FALSE)
   !is.null(api_key)

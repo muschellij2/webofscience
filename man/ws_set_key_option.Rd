@@ -22,5 +22,6 @@ Sets API key using
 if \code{options(key_option)}
 }
 \examples{
+ws_set_incites_key("my_incites_api_key")
 ws_set_key_option(api_key = "my_api_key", key_option = "ws_incites_key")
 }

@@ -22,5 +22,21 @@ If not, it stops and returns an error.  If so, returns the value.
 }
 \examples{
 res = ws_incites_key(error = FALSE)
+tfile = tempfile()
+writeLines("my_api_key", con = tfile)
+options(ws_incites_key_filename = tfile)
+ws_incites_key()
+file.remove(tfile)
+options(ws_incites_key_filename = NULL)
+
+ws_filename = getOption("ws_incites_key_filename")
+INCITES_KEY = Sys.getenv("INCITES_KEY")
+Sys.setenv(INCITES_KEY = "")
+writeLines(c("my_api_key1", "api_key2"), con = tfile)
+options(ws_incites_key_filename = tfile)
+testthat::expect_warning(ws_incites_key())
+file.remove(tfile)
+Sys.setenv(INCITES_KEY = INCITES_KEY)
+options(ws_incites_key_filename = ws_filename)
 ws_have_incites_key()
 }

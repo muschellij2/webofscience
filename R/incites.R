@@ -8,6 +8,22 @@
 #' @export
 #' @examples
 #' res = ws_incites_key(error = FALSE)
+#' tfile = tempfile()
+#' writeLines("my_api_key", con = tfile)
+#' options(ws_incites_key_filename = tfile)
+#' ws_incites_key()
+#' file.remove(tfile)
+#' options(ws_incites_key_filename = NULL)
+#'
+#' ws_filename = getOption("ws_incites_key_filename")
+#' INCITES_KEY = Sys.getenv("INCITES_KEY")
+#' Sys.setenv(INCITES_KEY = "")
+#' writeLines(c("my_api_key1", "api_key2"), con = tfile)
+#' options(ws_incites_key_filename = tfile)
+#' testthat::expect_warning(ws_incites_key())
+#' file.remove(tfile)
+#' Sys.setenv(INCITES_KEY = INCITES_KEY)
+#' options(ws_incites_key_filename = ws_filename)
 ws_incites_key = function(api_key = NULL, error = TRUE) {
   x = ws_list_apis()
   x = x$incites
@@ -33,6 +49,8 @@ ws_have_incites_key = function(api_key = NULL) {
 
 #' @rdname ws_set_key_option
 #' @export
+#' @examples
+#' ws_set_incites_key("my_incites_api_key")
 ws_set_incites_key = function(api_key) {
   x = ws_list_apis()
   x = x$incites

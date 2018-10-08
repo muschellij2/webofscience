@@ -8,6 +8,12 @@
 #'
 #' @examples
 #' ws_endpoints(api = "incites")
+#' ws_endpoints(api = c("incites", "endnote"))
+#' ws_incites_endpoints()
+#' ws_endnote_endpoints()
+#' ws_woslite_endpoints()
+#' ws_woslite_endpoints()
+#' ws_tipms_endpoints()
 ws_endpoints = function(
   out_type = c("json", "xml"),
   api = NULL
@@ -26,7 +32,7 @@ ws_endpoints = function(
 
   endpoint = ws_endnote_endpoints()
   woslite = ws_woslite_endpoints()
-  wos = ws_woslite_endpoints()
+  wos = ws_wos_endpoints()
   tipms = ws_tipms_endpoints()
 
   L = list(incites = incites,

@@ -22,4 +22,5 @@ If not, it stops and returns an error.  If so, returns the value.
 }
 \examples{
 res = ws_endnote_key(error = FALSE)
+ws_have_endnote_key()
 }
