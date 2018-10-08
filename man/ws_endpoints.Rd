@@ -34,6 +34,8 @@ Web of Science Endpoints
 }
 \examples{
 ws_incites_endpoints()
+ws_endpoints()
+ws_endpoints(out_type = "xml")
 ws_endpoints(api = "incites")
 ws_endpoints(api = c("incites", "endnote"))
 ws_incites_endpoints()
