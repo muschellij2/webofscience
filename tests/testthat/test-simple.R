@@ -11,6 +11,7 @@ test_that("check simple error", {
   Sys.setenv(INCITES_KEY = "")
 
   testthat::expect_false(ws_have_incites_key(api_key = NULL))
+  testthat::expect_null(ws_incites_key(api_key = "", error = FALSE))
   testthat::expect_error( {
     ws_incites_key(api_key = NULL, error = TRUE)
   })

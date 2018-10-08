@@ -33,6 +33,9 @@ ws_have_endnote_key = function(api_key = NULL) {
 
 #' @rdname ws_set_key_option
 #' @export
+#' @examples
+#' ws_endnote_key = getOption("ws_endnote_key")
+#' ws_set_endnote_key(ws_endnote_key)
 ws_set_endnote_key = function(api_key) {
   x = ws_list_apis()
   x = x$endnote
