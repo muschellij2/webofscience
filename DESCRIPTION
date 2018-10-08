@@ -11,6 +11,8 @@ Authors@R:
 Description: Interacts with the Web of Science API, including
     'InCites' to retrieve citation information.
 License: GPL-3
+Imports: 
+    httr
 Suggests: 
     covr,
     knitr,
@@ -21,3 +23,4 @@ LazyData: true
 VignetteBuilder: knitr
 URL: https://github.com/muschellij2/webofscience
 BugReports: https://github.com/muschellij2/webofscience/issues
+RoxygenNote: 6.1.0

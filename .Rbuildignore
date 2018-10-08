@@ -1,0 +1,8 @@
+^codecov\.yml$
+^\.travis\.yml$
+^appveyor\.yml$
+^README\.Rmd$
+^LICENSE\.md$
+^webofscience\.Rproj$
+^\.Rproj\.user$
+^.*\.Rproj$
