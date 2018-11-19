@@ -9,15 +9,8 @@
 #' @examples
 #' res = ws_woslite_key(error = FALSE)
 ws_woslite_key = function(api_key = NULL, error = TRUE) {
-  x = ws_list_apis()
-  x = x$woslite
-  api_key = ws_api_key(
-    api_key = api_key,
-    error = error,
-    key_option = x$key_option,
-    sys_env = x$sys_env,
-    key_filename_option = x$key_filename_option,
-    api_name = x$api_name)
+  api_key = ws_api_key(api_key = api_key, error = error,
+                       api = "woslite")
   return(api_key)
 }
 

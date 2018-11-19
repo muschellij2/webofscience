@@ -1,0 +1,169 @@
+---
+title: "Clarivate InCites API for Web of Science"
+author: "John Muschelli"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Clarivate InCites API for Web of Science}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(webofscience)
+```
+
+# Introduction
+The Web of Science or Web of Knowledge has a lot of bibliometric information about citations and publications.  We will show some examples for the the APIs we have access to.  All main functions have the prefix `ws_`.  All information is located at https://developer.clarivate.com/apis for the API specifications and requests for API keys.  Here we will show the InCites API.
+
+# Incites API
+
+The information from the InCites API can be found at https://developer.clarivate.com/apis/incites.  As this data cannot be shared, these examples will show you how to call the API, but not any of the results other than simple information.
+
+Here we show the information about the InCites API:
+
+```{r}
+library(webofscience)
+ws_list_apis()$incites
+```
+
+The key information is about where you can 
+
+If you have an InCites API key, you can set it either in the `~/.Renviron` with the `r ws_list_apis()$incites$sys_env` variable  or using the `ws_set_incites_key` function:
+
+```{r, eval = FALSE}
+ws_set_incites_key(api_key = "YOUR_INCITES_API_KEY")
+```
+
+You can test if you have the API key set using:
+```{r}
+ws_have_incites_key()
+```
+which will return a logical.
+
+
+## Calling the InCites API
+
+### Incites Last Updated 
+Here we will see the last time the data was updated:
+
+```{r}
+if (ws_have_incites_key()) {
+  result = ws_incites_last_updated(flatten = TRUE)
+  result$content$api$rval[[1]]
+}
+```
+
+One can use the `lubridate` package to parse these dates. 
+
+### Checking Valid UT
+
+A UT is a Unique identifier for Web of Science Core Collection article.  We will use `ws_incites_invalid_ut` to determine  which UTs are invalid (if any):
+
+```{r}
+ut = c("000352040700014","000353267900023",
+       "000346982900018","000346342200004")
+if (ws_have_incites_key()) {
+  valid_result = ws_incites_invalid_ut(ut = ut,
+                                       flatten = TRUE)
+  docs = valid_result$content$api$rval[[1]]
+  docs
+  if (length(docs) > 0) {
+    stop("Invalid UTs!")
+  }
+}
+```
+
+Above none are invalid.  Let us inject an invalid ID and see the result:
+
+```{r}
+if (ws_have_incites_key()) {
+  invalid_result = ws_incites_invalid_ut(
+    ut = c(ut,
+           "0003463422000AB"),
+    flatten = TRUE)
+  docs = invalid_result$content$api$rval[[1]]
+  docs
+}
+```
+
+We see the output is a `data.frame`.  If we want the invalid UTs, we can extract that one column:
+```{r}
+if (ws_have_incites_key()) {
+  class(docs)
+  docs$ISI_LOC
+}
+```
+
+We can then use `setdiff(ut, docs$ISI_LOC)` if we want to keep only the valid UTs.
+
+
+### Getting Metrics by UT
+
+If we want document metrics by UT, we can use `ws_incites_by_ut`.  We cannot show the output of the result, but we will show the names of the columns:
+
+```{r}
+if (ws_have_incites_key()) {
+  
+  result = ws_incites_by_ut(ut = ut,
+                            flatten = TRUE)
+  docs = result$content$api$rval[[1]]
+  names(docs)
+}
+```
+
+
+We can return InCites baseline metrics with Emerging Sources Citation Index (ESCI) content.  We show that they are not the same as those without, which was returned above:
+
+```{r}
+if (ws_have_incites_key()) {
+  result_with_esci = ws_incites_by_ut(ut = ut,
+                                      esci = TRUE,
+                                      flatten = TRUE)
+  docs_with_esci = result_with_esci$content$api$rval[[1]]
+  all.equal(docs, docs_with_esci)
+}
+```
+
+### Getting Metrics by Year
+
+Here we show the output from `DocumentLevelMetricsByInstitutionIdRecordCount` endpoint, which gets metrics count by year.  We cannot show the output, but it is a scalar numeric:
+
+```{r}
+if (ws_have_incites_key()) {
+  rec = ws_incites_by_record_count(
+    year = current_year(),
+    flatten = TRUE)
+  length(rec$content$api$rval)
+}
+```
+
+### Getting Metrics by Institution
+
+This calls the `DocumentLevelMetricsByInstitutionId` endpoint Find all document level metrics for a given institution
+
+```{r}
+if (ws_have_incites_key()) {
+  result = ws_incites_by_inst_id(
+    year = current_year(),
+    flatten = TRUE)
+  docs = result$content$api$rval[[1]]
+  colnames(docs)
+}
+```
+
+Again we can return InCites metrics with ESCI content.  We show again that they are not the same as those without, which was returned above:
+
+```{r}
+if (ws_have_incites_key()) {
+  result_with_esci = ws_incites_by_inst_id(
+    year = current_year(),
+    flatten = TRUE, esci = "y")
+  esci_docs = result_with_esci$content$api$rval[[1]]
+  all.equal(docs, esci_docs)
+}
+```

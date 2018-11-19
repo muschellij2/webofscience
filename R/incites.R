@@ -25,15 +25,8 @@
 #' Sys.setenv(INCITES_KEY = INCITES_KEY)
 #' options(ws_incites_key_filename = ws_filename)
 ws_incites_key = function(api_key = NULL, error = TRUE) {
-  x = ws_list_apis()
-  x = x$incites
-  api_key = ws_api_key(
-    api_key = api_key,
-    error = error,
-    key_option = x$key_option,
-    sys_env = x$sys_env,
-    key_filename_option = x$key_filename_option,
-    api_name = x$api_name)
+  api_key = ws_api_key(api_key = api_key, error = error,
+             api = "incites")
   return(api_key)
 }
 
@@ -62,7 +55,12 @@ ws_set_incites_key = function(api_key) {
 #' @export
 #' @examples
 #' ws_incites_endpoints()
-ws_incites_endpoints = function() {
+ws_incites_endpoints = function(out_type = c("json", "xml")) {
+  ws_endpoints(out_type, api = "incites")
+}
+
+#' @rdname ws_endpoints
+.ws_incites_endpoints = function() {
   df = list(
     "DocumentLevelMetricsByInstitutionId" = list(
       description = "Get metrics by institution Id",

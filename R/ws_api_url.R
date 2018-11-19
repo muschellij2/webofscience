@@ -1,6 +1,6 @@
 #' Web of Science API URL
 #'
-#' @param endpoint an endpoint for the API, see
+#' @param api an endpoint for the API, see
 #' \url{https://developer.clarivate.com/apis}
 #'
 #' @return A character path of the URL
@@ -9,13 +9,13 @@
 #' @examples
 #' ws_api_url()
 #' ws_incites_url()
-#' ws_api_url(endpoint = "incites")
+#' ws_api_url(api = "incites")
 #' ws_endnote_url()
 #' ws_tipms_url()
 #' ws_wos_url()
 #' ws_woslite_url()
-ws_api_url = function(endpoint = NULL) {
-  file.path("https://api.clarivate.com/api", endpoint)
+ws_api_url = function(api = NULL) {
+  paste0("https://api.clarivate.com/api/", api)
 }
 
 #' @rdname ws_api_url

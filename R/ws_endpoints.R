@@ -29,7 +29,7 @@ ws_endpoints = function(
       x
     }, df, names(df), SIMPLIFY = FALSE)
   }
-  incites = ws_incites_endpoints()
+  incites = .ws_incites_endpoints()
   incites = add_endpoints(incites)
 
   endpoint = ws_endnote_endpoints()

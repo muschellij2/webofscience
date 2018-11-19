@@ -9,7 +9,7 @@
 \alias{ws_woslite_url}
 \title{Web of Science API URL}
 \usage{
-ws_api_url(endpoint = NULL)
+ws_api_url(api = NULL)
 
 ws_incites_url()
 
@@ -22,7 +22,7 @@ ws_wos_url()
 ws_woslite_url()
 }
 \arguments{
-\item{endpoint}{an endpoint for the API, see
+\item{api}{an endpoint for the API, see
 \url{https://developer.clarivate.com/apis}}
 }
 \value{
@@ -34,7 +34,7 @@ Web of Science API URL
 \examples{
 ws_api_url()
 ws_incites_url()
-ws_api_url(endpoint = "incites")
+ws_api_url(api = "incites")
 ws_endnote_url()
 ws_tipms_url()
 ws_wos_url()

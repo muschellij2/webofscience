@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 # webofscience Package: 
 The goal of `webofscience` is to provide interacts with the Web of Science API, including 'InCites' to retrieve citation information.
 
+## API Keys
+
+API keys need to be requested at: https://developer.clarivate.com/apis.  Each API has a different API key and can be set using `ws_set_API_key` where `API` is the API in question.  See `ws_list_apis()` for a listing of the APIs and `ws_endpoints()` for their endpoints.  
+
 ## Installation
 
 You can install `webofscience` from GitHub with:

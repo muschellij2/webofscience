@@ -1,7 +1,7 @@
 Type: Package
 Package: webofscience
 Title: Web of Science API
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "John",
            family = "Muschelli",
@@ -12,7 +12,8 @@ Description: Interacts with the Web of Science API, including
     'InCites' to retrieve citation information.
 License: GPL-3
 Imports: 
-    httr
+    httr,
+    jsonlite
 Suggests: 
     covr,
     knitr,

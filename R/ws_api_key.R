@@ -21,14 +21,15 @@
 #' @examples
 #' api_key = NULL
 #' error = FALSE
-#'   api_key = ws_api_key(
+#'   api_key = ws_construct_api_key(
 #'   api_key = api_key,
 #'   error = error,
 #'   key_option = "ws_incites_key",
 #'   sys_env = "INCITES_KEY",
 #'   key_filename_option = "ws_incites_key_filename",
 #'   api_name = "Incites")
-ws_api_key = function(
+#' @rdname ws_api_key
+ws_construct_api_key = function(
   api_key = NULL, error = TRUE,
   key_option,
   sys_env,
@@ -69,7 +70,37 @@ ws_api_key = function(
                 "set environment variable ", sys_env, ", to be ",
                 "accessed by Sys.getenv('", sys_env, "')"))
   }
+  if (!is.null(api_key)) {
+    class(api_key) = "token"
+  }
   return(api_key)
+}
+
+#' @rdname ws_api_key
+#' @param api an endpoint for the API, see
+#' \code{\link{ws_list_apis}}
+#' @export
+ws_api_key = function(
+  api_key = NULL, error = TRUE,
+  api = names(ws_list_apis())
+) {
+  api = match.arg(api)
+  x = ws_list_apis()
+  x = x[[api]]
+  api_key = ws_construct_api_key(
+    api_key = api_key,
+    error = error,
+    key_option = x$key_option,
+    sys_env = x$sys_env,
+    key_filename_option = x$key_filename_option,
+    api_name = x$api_name)
+  return(api_key)
+}
+
+#' @export
+#' @rdname ws_api_key
+ws_api_key_header = function(api_key = NULL) {
+  httr::add_headers(`X-ApiKey` = api_key)
 }
 
 #' @rdname ws_api_key
@@ -78,31 +109,31 @@ ws_api_key = function(
 #' ws_list_apis()
 ws_list_apis = function() {
   L = list(incites = list(    key_option = "ws_incites_key",
-                          sys_env = "INCITES_KEY",
-                          key_filename_option = "ws_incites_key_filename",
-                          api_name = "Incites",
-                          endpoint = "incites"),
-       endnote = list(    key_option = "ws_endnote_key",
-                          sys_env = "ENDNOTE_KEY",
-                          key_filename_option = "ws_endnote_key_filename",
-                          api_name = "EndNote",
-                          endpoint = "endnote"),
-       wos = list(    key_option = "ws_wos_key",
+                              sys_env = "INCITES_KEY",
+                              key_filename_option = "ws_incites_key_filename",
+                              api_name = "Incites",
+                              endpoint = "incites"),
+           endnote = list(    key_option = "ws_endnote_key",
+                              sys_env = "ENDNOTE_KEY",
+                              key_filename_option = "ws_endnote_key_filename",
+                              api_name = "EndNote",
+                              endpoint = "endnote"),
+           wos = list(    key_option = "ws_wos_key",
                           sys_env = "WOS_KEY",
                           key_filename_option = "ws_wos_key_filename",
                           api_name = "WOS",
                           endpoint = "wos"),
-       woslite = list(    key_option = "ws_woslite_key",
-                          sys_env = "WOSLITE_KEY",
-                          key_filename_option = "ws_woslite_key_filename",
-                          api_name = "WOS Lite",
-                          endpoint = "woslite"),
-       tipms = list(    key_option = "ws_tipms_key",
-                          sys_env = "TIPMS_KEY",
-                          key_filename_option = "ws_tipms_key_filename",
-                          api_name = "IP Management System",
-                          endpoint = "tipms")
-       )
+           woslite = list(    key_option = "ws_woslite_key",
+                              sys_env = "WOSLITE_KEY",
+                              key_filename_option = "ws_woslite_key_filename",
+                              api_name = "WOS Lite",
+                              endpoint = "woslite"),
+           tipms = list(    key_option = "ws_tipms_key",
+                            sys_env = "TIPMS_KEY",
+                            key_filename_option = "ws_tipms_key_filename",
+                            api_name = "IP Management System",
+                            endpoint = "tipms")
+  )
   L = lapply(L, function(x) {
     x$url = ws_api_url(x$endpoint)
     x

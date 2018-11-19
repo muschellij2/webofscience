@@ -4,6 +4,7 @@
 \name{ws_endnote_endpoints}
 \alias{ws_endnote_endpoints}
 \alias{ws_incites_endpoints}
+\alias{.ws_incites_endpoints}
 \alias{ws_tipms_endpoints}
 \alias{ws_wos_endpoints}
 \alias{ws_woslite_endpoints}
@@ -12,7 +13,9 @@
 \usage{
 ws_endnote_endpoints()
 
-ws_incites_endpoints()
+ws_incites_endpoints(out_type = c("json", "xml"))
+
+.ws_incites_endpoints()
 
 ws_tipms_endpoints()
 
