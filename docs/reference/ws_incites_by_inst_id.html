@@ -214,7 +214,8 @@ per request. To see sample API results, use one or more
 <span class='no'>result</span> <span class='kw'>=</span> <span class='fu'>ws_incites_invalid_ut</span>(<span class='kw'>ut</span> <span class='kw'>=</span> <span class='no'>ut</span>,
 <span class='kw'>flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>docs</span> <span class='kw'>=</span> <span class='no'>result</span>$<span class='no'>content</span>$<span class='no'>api</span>$<span class='no'>rval</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-}</div><div class='output co'>#&gt; <span class='warning'>Warning: Too Many Requests (RFC 6585) (HTTP 429).</span></div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='ws_incites_key.html'>ws_have_incites_key</a></span>()) {
+}
+<span class='kw'>if</span> (<span class='fu'><a href='ws_incites_key.html'>ws_have_incites_key</a></span>()) {
 <span class='no'>result</span> <span class='kw'>=</span> <span class='fu'>ws_incites_last_updated</span>(<span class='kw'>flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>result</span>$<span class='no'>content</span>$<span class='no'>api</span>$<span class='no'>rval</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 }</div><div class='output co'>#&gt; <span class='warning'>Warning: Too Many Requests (RFC 6585) (HTTP 429).</span></div><div class='output co'>#&gt; NULL</div></pre>

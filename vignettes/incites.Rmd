@@ -54,7 +54,7 @@ Here we will see the last time the data was updated:
 ```{r}
 if (ws_have_incites_key()) {
   result = ws_incites_last_updated(flatten = TRUE)
-  result$content$api$rval[[1]]
+  print(result$content$api$rval[[1]])
 }
 ```
 
@@ -71,7 +71,7 @@ if (ws_have_incites_key()) {
   valid_result = ws_incites_invalid_ut(ut = ut,
                                        flatten = TRUE)
   docs = valid_result$content$api$rval[[1]]
-  docs
+  print(docs)
   if (length(docs) > 0) {
     stop("Invalid UTs!")
   }
@@ -87,15 +87,15 @@ if (ws_have_incites_key()) {
            "0003463422000AB"),
     flatten = TRUE)
   docs = invalid_result$content$api$rval[[1]]
-  docs
+  print(docs)
 }
 ```
 
 We see the output is a `data.frame`.  If we want the invalid UTs, we can extract that one column:
 ```{r}
 if (ws_have_incites_key()) {
-  class(docs)
-  docs$ISI_LOC
+  print(class(docs))
+  print(docs$ISI_LOC)
 }
 ```
 
@@ -112,7 +112,7 @@ if (ws_have_incites_key()) {
   result = ws_incites_by_ut(ut = ut,
                             flatten = TRUE)
   docs = result$content$api$rval[[1]]
-  names(docs)
+  print(names(docs))
 }
 ```
 
@@ -125,7 +125,7 @@ if (ws_have_incites_key()) {
                                       esci = TRUE,
                                       flatten = TRUE)
   docs_with_esci = result_with_esci$content$api$rval[[1]]
-  all.equal(docs, docs_with_esci)
+  print(all.equal(docs, docs_with_esci))
 }
 ```
 
@@ -138,7 +138,7 @@ if (ws_have_incites_key()) {
   rec = ws_incites_by_record_count(
     year = current_year(),
     flatten = TRUE)
-  length(rec$content$api$rval)
+  print(length(rec$content$api$rval))
 }
 ```
 
@@ -152,7 +152,7 @@ if (ws_have_incites_key()) {
     year = current_year(),
     flatten = TRUE)
   docs = result$content$api$rval[[1]]
-  colnames(docs)
+  print(colnames(docs))
 }
 ```
 
@@ -164,6 +164,6 @@ if (ws_have_incites_key()) {
     year = current_year(),
     flatten = TRUE, esci = "y")
   esci_docs = result_with_esci$content$api$rval[[1]]
-  all.equal(docs, esci_docs)
+  print(all.equal(docs, esci_docs))
 }
 ```

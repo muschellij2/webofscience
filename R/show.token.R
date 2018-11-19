@@ -30,6 +30,7 @@ print.ws_result = function(x, reveal = FALSE, ...) {
 }
 
 #' @export
+#' @rdname print.token
 reveal = function(x, ...) {
   print(x, reveal = TRUE, ...)
 }

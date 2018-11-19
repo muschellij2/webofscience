@@ -136,7 +136,7 @@
 <p>Here we will see the last time the data was updated:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ws_incites_key.html">ws_have_incites_key</a></span>()) {</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  result =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_last_updated</a></span>(<span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="kw">print</span>(result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]])</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;   INCITES_DATASET_UPDATED WOS_DATASET_INDEXED</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1              10-31-2018      31/August/2018</span></a>
@@ -153,11 +153,12 @@
 <a class="sourceLine" id="cb5-4" data-line-number="4">  valid_result =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_invalid_ut</a></span>(<span class="dt">ut =</span> ut,</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">                                       <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6">  docs =<span class="st"> </span>valid_result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">  docs</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">  <span class="kw">print</span>(docs)</a>
 <a class="sourceLine" id="cb5-8" data-line-number="8">  <span class="cf">if</span> (<span class="kw">length</span>(docs) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
 <a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="kw">stop</span>(<span class="st">"Invalid UTs!"</span>)</a>
 <a class="sourceLine" id="cb5-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">}</a></code></pre></div>
+<a class="sourceLine" id="cb5-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; list()</span></a></code></pre></div>
 <p>Above none are invalid. Let us inject an invalid ID and see the result:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ws_incites_key.html">ws_have_incites_key</a></span>()) {</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  invalid_result =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_invalid_ut</a></span>(</a>
@@ -165,17 +166,17 @@
 <a class="sourceLine" id="cb6-4" data-line-number="4">           <span class="st">"0003463422000AB"</span>),</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb6-6" data-line-number="6">  docs =<span class="st"> </span>invalid_result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">  docs</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="kw">print</span>(docs)</a>
 <a class="sourceLine" id="cb6-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; NULL</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;           ISI_LOC</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 1 0003463422000AB</span></a></code></pre></div>
 <p>We see the output is a <code>data.frame</code>. If we want the invalid UTs, we can extract that one column:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ws_incites_key.html">ws_have_incites_key</a></span>()) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">class</span>(docs)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  docs<span class="op">$</span>ISI_LOC</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">print</span>(<span class="kw">class</span>(docs))</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="kw">print</span>(docs<span class="op">$</span>ISI_LOC)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; NULL</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; [1] "data.frame"</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; [1] "0003463422000AB"</span></a></code></pre></div>
 <p>We can then use <code>setdiff(ut, docs$ISI_LOC)</code> if we want to keep only the valid UTs.</p>
 </div>
 <div id="getting-metrics-by-ut" class="section level3">
@@ -187,22 +188,34 @@
 <a class="sourceLine" id="cb8-3" data-line-number="3">  result =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_by_ut</a></span>(<span class="dt">ut =</span> ut,</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4">                            <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5">  docs =<span class="st"> </span>result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="kw">names</span>(docs)</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="kw">print</span>(<span class="kw">names</span>(docs))</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; NULL</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  [1] "IS_INTERNATIONAL_COLLAB"    "ARTICLE_TYPE"              </span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  [3] "JOURNAL_EXPECTED_CITATIONS" "IMPACT_FACTOR"             </span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  [5] "JOURNAL_ACT_EXP_CITATIONS"  "IS_INDUSTRY_COLLAB"        </span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  [7] "AVG_EXPECTED_RATE"          "PERCENTILE"                </span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  [9] "OA_FLAG"                    "IS_INSTITUTION_COLLAB"     </span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; [11] "HOT_PAPER"                  "NCI"                       </span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; [13] "ISI_LOC"                    "ESI_MOST_CITED_ARTICLE"    </span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; [15] "TOT_CITES"</span></a></code></pre></div>
 <p>We can return InCites baseline metrics with Emerging Sources Citation Index (ESCI) content. We show that they are not the same as those without, which was returned above:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ws_incites_key.html">ws_have_incites_key</a></span>()) {</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">  result_with_esci =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_by_ut</a></span>(<span class="dt">ut =</span> ut,</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">                                      <span class="dt">esci =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">                                      <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5">  docs_with_esci =<span class="st"> </span>result_with_esci<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="kw">all.equal</span>(docs, docs_with_esci)</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="kw">print</span>(<span class="kw">all.equal</span>(docs, docs_with_esci))</a>
 <a class="sourceLine" id="cb9-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [1] "Modes: list, NULL"                                   </span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [2] "Lengths: 15, 0"                                      </span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; [3] "names for target but not for current"                </span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; [4] "Attributes: &lt; Modes: list, NULL &gt;"                   </span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; [5] "Attributes: &lt; Lengths: 2, 0 &gt;"                       </span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; [6] "Attributes: &lt; names for target but not for current &gt;"</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; [7] "Attributes: &lt; current is not list-like &gt;"            </span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; [8] "current is not list-like"</span></a></code></pre></div>
 </div>
 <div id="getting-metrics-by-year" class="section level3">
 <h3 class="hasAnchor">
@@ -212,9 +225,11 @@
 <a class="sourceLine" id="cb10-2" data-line-number="2">  rec =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_by_record_count</a></span>(</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">    <span class="dt">year =</span> <span class="kw"><a href="../reference/current_year.html">current_year</a></span>(),</a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">    <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="kw">length</span>(rec<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval)</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="kw">print</span>(<span class="kw">length</span>(rec<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval))</a>
 <a class="sourceLine" id="cb10-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [1] 0</span></a></code></pre></div>
 </div>
 <div id="getting-metrics-by-institution" class="section level3">
 <h3 class="hasAnchor">
@@ -225,34 +240,22 @@
 <a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="dt">year =</span> <span class="kw"><a href="../reference/current_year.html">current_year</a></span>(),</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="dt">flatten =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">  docs =<span class="st"> </span>result<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">  <span class="kw">colnames</span>(docs)</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  <span class="kw">print</span>(<span class="kw">colnames</span>(docs))</a>
 <a class="sourceLine" id="cb11-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt;  [1] "ISI_LOC"                    "ARTICLE_TYPE"              </span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt;  [3] "TOT_CITES"                  "JOURNAL_EXPECTED_CITATIONS"</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt;  [5] "JOURNAL_ACT_EXP_CITATIONS"  "IMPACT_FACTOR"             </span></a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt;  [7] "AVG_EXPECTED_RATE"          "PERCENTILE"                </span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt;  [9] "NCI"                        "ESI_MOST_CITED_ARTICLE"    </span></a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; [11] "HOT_PAPER"                  "IS_INTERNATIONAL_COLLAB"   </span></a>
-<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt; [13] "IS_INSTITUTION_COLLAB"      "IS_INDUSTRY_COLLAB"        </span></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt; [15] "OA_FLAG"</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p>Again we can return InCites metrics with ESCI content. We show again that they are not the same as those without, which was returned above:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="cf">if</span> (<span class="kw"><a href="../reference/ws_incites_key.html">ws_have_incites_key</a></span>()) {</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">  result_with_esci =<span class="st"> </span><span class="kw"><a href="../reference/ws_incites_by_inst_id.html">ws_incites_by_inst_id</a></span>(</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">    <span class="dt">year =</span> <span class="kw"><a href="../reference/current_year.html">current_year</a></span>(),</a>
 <a class="sourceLine" id="cb12-4" data-line-number="4">    <span class="dt">flatten =</span> <span class="ot">TRUE</span>, <span class="dt">esci =</span> <span class="st">"y"</span>)</a>
 <a class="sourceLine" id="cb12-5" data-line-number="5">  esci_docs =<span class="st"> </span>result_with_esci<span class="op">$</span>content<span class="op">$</span>api<span class="op">$</span>rval[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="kw">all.equal</span>(docs, esci_docs)</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="kw">print</span>(<span class="kw">all.equal</span>(docs, esci_docs))</a>
 <a class="sourceLine" id="cb12-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; Warning in ws_request_content(res, error = FALSE, ...): Too Many Requests</span></a>
 <a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; (RFC 6585) (HTTP 429).</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; [1] "Modes: list, NULL"                                   </span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; [2] "Lengths: 15, 0"                                      </span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; [3] "names for target but not for current"                </span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; [4] "Attributes: &lt; Modes: list, NULL &gt;"                   </span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; [5] "Attributes: &lt; Lengths: 2, 0 &gt;"                       </span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; [6] "Attributes: &lt; names for target but not for current &gt;"</span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; [7] "Attributes: &lt; current is not list-like &gt;"            </span></a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; [8] "current is not list-like"</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
 </div>
 </div>
 </div>
